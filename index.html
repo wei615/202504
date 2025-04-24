@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sketch</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script src="libraries/p5.min.js"></script>
+    <script src="libraries/p5.sound.min.js"></script>
+  </head>
+
+  <body>
+    <!-- 選單 -->
+    <ul class="menu">
+      <li class="dropdown">
+        首頁
+        <ul class="submenu">
+          <li onclick="loadIframe('https://www.et.tku.edu.tw/')">教育科技學系</li>
+        </ul>
+      </li>
+      <li onclick="loadIframe('https://wei615.github.io/20253/')">自我介紹</li>
+      <li class="dropdown">
+        作品集
+        <ul class="submenu">
+          <li onclick="loadIframe('https://wei615.github.io/20250419-1/')">作品一</li>
+          <li onclick="loadIframe('https://wei615.github.io/20250419-2/')">作品二</li>
+          <li onclick="loadIframe('https://wei615.github.io/20250419-3/')">作品三</li>
+          <li onclick="loadIframe('https://wei615.github.io/20250419-5/')">作品四</li>
+        </ul>
+      </li>
+      <li onclick="loadIframe('https://wei615.github.io/20252/')">測驗卷</li>
+      <li onclick="loadIframe('https://www.youtube.com/embed/rqwNsG68XIE')">教學影片</li>
+    </ul>
+
+    <!-- iframe -->
+    <iframe id="content-frame" src="" frameborder="0" style="display: none;"></iframe>
+
+    <!-- sketch.js 動畫 -->
+    <script src="sketch.js"></script>
+
+    <script>
+      // 動態載入 iframe 網頁
+      function loadIframe(url) {
+        const iframe = document.getElementById('content-frame');
+        iframe.style.display = 'block'; // 顯示 iframe
+        iframe.src = url;
+      }
+
+      // 隱藏 iframe
+      function hideIframe() {
+        const iframe = document.getElementById('content-frame');
+        iframe.style.display = 'none'; // 隱藏 iframe
+        iframe.src = ''; // 清空 iframe 的內容
+      }
+
+      // 顯示或隱藏選單
+      document.addEventListener('mousemove', (event) => {
+        const menu = document.querySelector('.menu');
+        if (event.clientY < 250) {
+          menu.classList.add('visible'); // 顯示選單
+        } else {
+          menu.classList.remove('visible'); // 隱藏選單
+        }
+      });
+
+      // 點擊空白處隱藏 iframe
+      document.addEventListener('click', (event) => {
+        const iframe = document.getElementById('content-frame');
+        const menu = document.querySelector('.menu');
+        if (!menu.contains(event.target) && event.target !== iframe) {
+          hideIframe(); // 隱藏 iframe
+        }
+      });
+    </script>
+  </body>
+</html>
